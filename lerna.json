@@ -4,8 +4,16 @@
         "packages/*"
     ],
     "command": {
-        "publish": {
-            "allowBranch": ["master", "main", "release/*", "feature/*", "hotfix/*"]
+        "version": {
+            "allowBranch": ["master", "main", "release/*", "feature/*", "hotfix/*"],
+            "conventionalCommits": true,
+            "exact": true,
+            "message": "chore(release): %s"
         }
-    }
+    },
+    "ignoreChanges": [
+        "**/__fixtures__/**",
+        "**/__tests__/**",
+        "**/*.md"
+    ]
 }
