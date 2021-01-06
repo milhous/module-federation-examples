@@ -1,5 +1,7 @@
 import React from "react";
 
-const Button = () => <button>App 2 Button</button>;
+const href = location.href;
+
+const Button = () => <button onClick = {() => { alert(href); } }>App 2 Button</button>;
 
 export default Button;
