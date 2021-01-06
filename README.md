@@ -11,7 +11,6 @@
 npm install -g lerna
 
 lerna init --independent
-
 ```
 
 ### 安装项目依赖
@@ -19,7 +18,6 @@ lerna bootstrap命令为每个包安装依赖，链接相互依赖的库到具�
 
 ```
 lerna bootstrap --hoist
-
 ```
 
 ### 项目提交代码
@@ -33,12 +31,10 @@ lerna version命令执行以下操作
 
 ```
 lerna version --conventional-commits
-
 ```
 
 ### 项目脚本命令
 lerna run命令执行每个包package.json中的脚本命令，
-
 ```
 npm run start 
 lerna run --parallel start
@@ -51,5 +47,4 @@ lerna run --parallel serve
 
 npm run clean
 lerna run --parallel clean
-
 ```
