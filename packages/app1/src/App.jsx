@@ -1,5 +1,10 @@
 import React from "react";
 
+const remoteApps = {
+  app2: ['http://localhost:3002/', location.origin + '/app2/'],
+  app3: ['http://localhost:3003/', location.origin + '/app3/']
+}
+
 function loadComponent(scope, module) {
   return async () => {
     // Initializes the share scope. This fills it with known provided modules from this build and all remotes
@@ -86,18 +91,23 @@ function System(props) {
 
 function App() {
   const [system, setSystem] = React.useState(undefined);
+  const isLocal = location.hostname === 'localhost';
 
   function setApp2() {
+    const url = isLocal ? remoteApps.app2[0] : remoteApps.app2[1];
+
     setSystem({
-      url: "http://localhost:3002/remoteEntry.js",
+      url: url + "remoteEntry.js",
       scope: "app2",
       module: "./Widget",
     });
   }
 
   function setApp3() {
+    const url = isLocal ? remoteApps.app3[0] : remoteApps.app3[1];
+
     setSystem({
-      url: "http://localhost:3003/remoteEntry.js",
+      url: url + "remoteEntry.js",
       scope: "app3",
       module: "./Widget",
     });

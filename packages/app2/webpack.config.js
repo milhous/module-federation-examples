@@ -12,9 +12,12 @@ module.exports = {
     mode: "development",
     devServer: {
         contentBase: path.join(__dirname, "dist"),
-        port: 3002,
         hot: true,
-        compress: true
+        compress: true,
+        port: 3002
+    },
+    optimization: {
+        chunkIds: 'named'
     },
     target: 'web',
     output: {

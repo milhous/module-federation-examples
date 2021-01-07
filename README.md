@@ -30,7 +30,7 @@ lerna version命令执行以下操作
 5. 推到git远程。
 
 ```
-lerna version
+lerna version --conventional-commits
 ```
 
 ### 项目脚本命令

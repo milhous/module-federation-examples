@@ -8,7 +8,7 @@
             "allowBranch": ["master", "main", "release/*", "feature/*", "hotfix/*"],
             "conventionalCommits": true,
             "exact": true,
-            "message": "chore(release): %s"
+            "message": "chore(release): publish"
         }
     },
     "ignoreChanges": [
