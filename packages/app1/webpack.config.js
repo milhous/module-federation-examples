@@ -1,15 +1,23 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack").container
     .ModuleFederationPlugin;
+const HotModuleReplacementPlugin = require("webpack").HotModuleReplacementPlugin;
 const path = require("path");
 
 module.exports = {
     entry: "./src/index",
+    resolve: {
+        modules: ['node_modules'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    },
     mode: "development",
     devServer: {
         contentBase: path.join(__dirname, "dist"),
         port: 3001,
+        hot: true,
+        compress: true
     },
+    target: 'web',
     output: {
         publicPath: "auto",
     },
@@ -32,9 +40,10 @@ module.exports = {
         ],
     },
     plugins: [
+        new HotModuleReplacementPlugin(),
         new ModuleFederationPlugin({
             name: "app1",
-            shared: { react: { singleton: true }, "react-dom": { singleton: true } },
+            shared: { "react": { singleton: true }, "react-dom": { singleton: true } },
         }),
         new HtmlWebpackPlugin({
             template: "./public/index.html",

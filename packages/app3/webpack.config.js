@@ -2,7 +2,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ModuleFederationPlugin = require("webpack").container.ModuleFederationPlugin;
 const HotModuleReplacementPlugin = require("webpack").HotModuleReplacementPlugin;
 const path = require("path");
-const deps = require("./package.json").dependencies;
+
 module.exports = {
     entry: "./src/index",
     resolve: {
@@ -12,7 +12,7 @@ module.exports = {
     mode: "development",
     devServer: {
         contentBase: path.join(__dirname, "dist"),
-        port: 3002,
+        port: 3003,
         hot: true,
         compress: true
     },
@@ -39,8 +39,9 @@ module.exports = {
         ],
     },
     plugins: [
+        new HotModuleReplacementPlugin(),
         new ModuleFederationPlugin({
-            name: "app2",
+            name: "app3",
             filename: "remoteEntry.js",
             exposes: {
                 "./Widget": "./src/Widget",
