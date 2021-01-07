@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { ModuleFederationPlugin } = require("webpack").container;
+const ModuleFederationPlugin = require("webpack").container
+    .ModuleFederationPlugin;
 const path = require("path");
 
 module.exports = {
@@ -14,10 +15,10 @@ module.exports = {
     },
     module: {
         rules: [{
-                test: /bootstrap\.js$/,
-                loader: "bundle-loader",
-                options: {
-                    lazy: true,
+                test: /\.m?js$/,
+                type: "javascript/auto",
+                resolve: {
+                    fullySpecified: false,
                 },
             },
             {
@@ -30,13 +31,9 @@ module.exports = {
             },
         ],
     },
-    //http://localhost:3002/remoteEntry.js
     plugins: [
         new ModuleFederationPlugin({
             name: "app1",
-            remotes: {
-                app2: "app2@https://sdk.milhous.cn/app2/remoteAppEntry.js",
-            },
             shared: { react: { singleton: true }, "react-dom": { singleton: true } },
         }),
         new HtmlWebpackPlugin({
