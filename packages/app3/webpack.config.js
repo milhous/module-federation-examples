@@ -16,9 +16,6 @@ module.exports = {
         compress: true,
         port: 3003
     },
-    optimization: {
-        chunkIds: 'named'
-    },
     target: 'web',
     output: {
         publicPath: "auto",
