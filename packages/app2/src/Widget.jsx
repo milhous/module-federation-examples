@@ -1,7 +1,10 @@
 import React from "react";
 import moment from "moment";
+import { NameContextProvider } from "../../shared-library/src";
 
 export default function Widget() {
+  const name = React.useContext(NameContextProvider);
+
   return (
     <div
       style={{
@@ -12,6 +15,8 @@ export default function Widget() {
       }}
     >
       <h2>App2 Widget</h2>
+      <p>{location.href}</p>
+      <p>Welcome, {name}</p>
       <p>App2 Moment Dep: {moment().format("MMMM Do YYYY, h:mm:ss a")}</p>
     </div>
   );

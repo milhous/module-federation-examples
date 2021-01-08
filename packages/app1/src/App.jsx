@@ -1,4 +1,5 @@
 import React from "react";
+import { NameContextProvider } from "../../shared-library/src";
 
 const remoteApps = {
   app2: ['http://localhost:3002/', location.origin + '/app2/'],
@@ -130,7 +131,9 @@ function App() {
       <button onClick={setApp2}>Load App 2 Widget</button>
       <button onClick={setApp3}>Load App 3 Widget</button>
       <div style={{ marginTop: "2em" }}>
-        <System system={system} />
+        <NameContextProvider.Provider value="Milhous">
+          <System system={system} />
+        </NameContextProvider.Provider>
       </div>
     </div>
   );

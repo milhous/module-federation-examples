@@ -48,7 +48,8 @@ module.exports = {
             shared: {
                 "react": { singleton: true },
                 "react-dom": { singleton: true },
-            },
+                "@packages/shared-library": { singleton: true }
+            }
         }),
         new HtmlWebpackPlugin({
             template: "./public/index.html",
