@@ -1,6 +1,6 @@
 {
     "name": "@packages/app3",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "private": true,
     "devDependencies": {
         "@babel/core": "7.12.10",
@@ -19,7 +19,7 @@
         "clean": "rm -rf dist"
     },
     "dependencies": {
-        "@packages/shared-library": "^0.0.0",
+        "@packages/shared-library": "^0.0.1",
         "moment": "2.29.1",
         "react": "17.0.1",
         "react-dom": "17.0.1",
