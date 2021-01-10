@@ -15,6 +15,9 @@ function loadComponent(scope, module) {
     await container.init(__webpack_share_scopes__.default);
     const factory = await window[scope].get(module);
     const Module = factory();
+
+    console.log(Module);
+
     return Module;
   };
 }
@@ -83,15 +86,17 @@ function System(props) {
     loadComponent(props.system.scope, props.system.module)
   );
 
+  console.log('app1 NameContextProvider', NameContextProvider);
+
   return (
     <React.Suspense fallback="Loading System">
-      <Component />
+      <Component sys='app1' />
     </React.Suspense>
   );
 }
 
 function App() {
-  const [system, setSystem] = React.useState(undefined);
+  const [system, setSystem] = React.useState({});
   const isLocal = location.hostname === 'localhost';
 
   function setApp2() {
@@ -131,7 +136,7 @@ function App() {
       <button onClick={setApp2}>Load App 2 Widget</button>
       <button onClick={setApp3}>Load App 3 Widget</button>
       <div style={{ marginTop: "2em" }}>
-        <NameContextProvider.Provider value="Milhous">
+        <NameContextProvider.Provider value={system.scope}>
           <System system={system} />
         </NameContextProvider.Provider>
       </div>

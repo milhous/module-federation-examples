@@ -7,7 +7,7 @@ const App = () => (
     <h1>Dynamic System Host</h1>
     <h2>App 2</h2>
     <NameContextProvider.Provider value="Mike">
-      <LocalButton />
+      <LocalButton sys="app2" />
     </NameContextProvider.Provider>
   </div>
 );
