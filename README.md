@@ -24,7 +24,7 @@ lerna bootstrap --hoist
 ```
 
 ### 项目提交代码
-lerna version命令执行以下操作
+lerna version命令执行以下操作，遵循semver版本规范。
 
 1. 标识自上一个标记版本以来已更新的包。
 2. 提示输入新版本。
@@ -37,7 +37,8 @@ lerna version --conventional-commits
 ```
 
 ### 项目脚本命令
-lerna run命令执行每个包package.json中的脚本命令，
+lerna run命令执行每个包package.json中的脚本命令
+
 ```
 npm run start 
 lerna run --parallel start
@@ -50,4 +51,16 @@ lerna run --parallel serve
 
 npm run clean
 lerna run --parallel clean
+```
+
+### 其他命令
+
+```
+#运行任意命令在每个包
+lerna exec --scope=my-component npm update
+
+# 增加本地或者远程package做为当前项目packages里面的依赖
+# -dev devDependencies 替代 dependencies
+# --exact 安装准确版本，就是安装的包版本前面不带^, Eg: "^2.20.0" ➜ "2.20.0"
+lerna add module-1 --scope=module-2 --dev
 ```

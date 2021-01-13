@@ -4,7 +4,7 @@ import { NameContextProvider } from "../../shared-library/src";
 
 export default function Widget(props) {
   React.useEffect(() => {
-    console.log('app3', NameContextProvider, props);
+    console.log('app3', props);
   });
 
   return (
@@ -22,9 +22,10 @@ export default function Widget(props) {
           Using <strong>momentjs</strong> for format the date
         </p>
         <p>{location.href}</p>
-        <p>Welcome, {context}</p>
+        <p>Context, {context}</p>
+        <p>Props: {JSON.stringify(props)}</p>
         <p>{moment().format("MMMM Do YYYY, h:mm:ss a")}</p>
       </div>}
-  </NameContextProvider.Consumer>
+    </NameContextProvider.Consumer>
   );
 }

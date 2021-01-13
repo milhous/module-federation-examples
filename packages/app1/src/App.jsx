@@ -1,5 +1,7 @@
 import React from "react";
+import { HashRouter, Route, Switch } from "react-router-dom";
 import { NameContextProvider } from "../../shared-library/src";
+import Navigation from "./Navigation";
 
 const remoteApps = {
   app2: ['http://localhost:3002/', location.origin + '/app2/'],
@@ -16,10 +18,33 @@ function loadComponent(scope, module) {
     const factory = await window[scope].get(module);
     const Module = factory();
 
-    console.log(Module);
-
     return Module;
   };
+}
+
+function loadRoutes(props) {
+  const { ready, failed } = useDynamicScript({
+    url: props.system && props.system.url,
+  });
+  let routes = [];
+
+  if (!props.system) {
+    return routes;
+  }
+
+  if (!ready) {
+    return routes;
+  }
+
+  if (failed) {
+    return routes;
+  }
+
+  routes = React.lazy(
+    loadComponent(props.system.scope, props.system.module)
+  );
+
+  return routes;
 }
 
 const useDynamicScript = (args) => {
@@ -86,18 +111,29 @@ function System(props) {
     loadComponent(props.system.scope, props.system.module)
   );
 
-  console.log('app1 NameContextProvider', NameContextProvider);
-
   return (
     <React.Suspense fallback="Loading System">
-      <Component sys='app1' />
+      <Component sys='app1' name={props.name} />
     </React.Suspense>
   );
 }
 
 function App() {
   const [system, setSystem] = React.useState({});
+  const [name, setName] = React.useState('');
+  const [routes, setRoutes] = React.useState([]);
   const isLocal = location.hostname === 'localhost';
+
+  React.useEffect(() => {
+    // const url = isLocal ? remoteApps.app2[0] : remoteApps.app2[1];
+    // const remoteRoutes = loadRoutes({
+    //   url: url + "remoteEntry.js",
+    //   scope: "app2",
+    //   module: "./routes",
+    // });
+
+    // console.log(remoteRoutes);
+  }, []);
 
   function setApp2() {
     const url = isLocal ? remoteApps.app2[0] : remoteApps.app2[1];
@@ -120,27 +156,43 @@ function App() {
   }
 
   return (
-    <div
-      style={{
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
-      }}
-    >
-      <h1>Dynamic System Host</h1>
-      <h2>App 1</h2>
-      <p>
-        The Dynamic System will take advantage Module Federation{" "}
-        <strong>remotes</strong> and <strong>exposes</strong>. It will no load
+    <HashRouter>
+      <div
+        style={{
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+        }}
+      >
+        <h1>Dynamic System Host</h1>
+        <h2>App 1</h2>
+        <p>
+          The Dynamic System will take advantage Module Federation{" "}
+          <strong>remotes</strong> and <strong>exposes</strong>. It will no load
         components that have been loaded already.
       </p>
-      <button onClick={setApp2}>Load App 2 Widget</button>
-      <button onClick={setApp3}>Load App 3 Widget</button>
-      <div style={{ marginTop: "2em" }}>
-        <NameContextProvider.Provider value={system.scope}>
-          <System system={system} />
-        </NameContextProvider.Provider>
+        <button onClick={setApp3}>Load App 3 Widget</button>
+        <button onClick={setApp2}>Load App 2 Widget</button>
+        <button onClick={() => { setName('' + Math.random()) }}>setName: {name}</button>
+        <div style={{ marginTop: "2em" }}>
+          <NameContextProvider.Provider value={name}>
+            <System system={system} name={name} />
+          </NameContextProvider.Provider>
+        </div>
+        <Navigation />
+        <React.Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            {routes.map((route) => (
+              <Route
+                key={route.path}
+                path={route.path}
+                component={route.component}
+                exact={route.exact}
+              />
+            ))}
+          </Switch>
+        </React.Suspense>
       </div>
-    </div>
+    </HashRouter>
   );
 }
 

@@ -44,9 +44,8 @@ module.exports = {
         new ModuleFederationPlugin({
             name: "app1",
             shared: {
-                "react": { singleton: true },
-                "react-dom": { singleton: true },
-                "@packages/shared-library": { singleton: true }
+                "react": { singleton: true, eager: true },
+                "react-dom": { singleton: true, eager: true }
             }
         }),
         new HtmlWebpackPlugin({

@@ -3,6 +3,7 @@ const ModuleFederationPlugin = require("webpack").container.ModuleFederationPlug
 const HotModuleReplacementPlugin = require("webpack").HotModuleReplacementPlugin;
 const path = require("path");
 const deps = require("./package.json").dependencies;
+
 module.exports = {
     entry: "./src/index",
     resolve: {
@@ -44,11 +45,12 @@ module.exports = {
             filename: "remoteEntry.js",
             exposes: {
                 "./Widget": "./src/Widget",
+                "./routes": "./src/routes"
             },
             shared: {
-                "react": { singleton: true },
-                "react-dom": { singleton: true },
-                "@packages/shared-library": { singleton: true }
+                ...deps,
+                "react": { singleton: true, eager: true },
+                "react-dom": { singleton: true, eager: true }
             }
         }),
         new HtmlWebpackPlugin({
