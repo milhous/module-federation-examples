@@ -2,31 +2,24 @@ import React, { createContext, useContext, useMemo } from "react";
 
 export const SharedContext = createContext();
 
+const random = Math.random();
+
 export const SharedContextProvider = (props) => {
     const { children, value } = props;
 
-    console.log('SharedContextProvider', props);
-
-    /* We cache the provided components */
-    const providedValue = useMemo(
-        () => value,
-        [value],
-    );
-
     return (
         <SharedContext.Provider value={value}>
-        {children}
+            {children}
         </SharedContext.Provider>
     );
 };
 
 export const SharedContextConsumer = ({ children }) => {
-    console.log('SharedContextConsumer', SharedContext);
+    console.log('SharedContextConsumer', random, SharedContext);
 
     return (
         <SharedContext.Consumer>
-        {children}
+            {children}
         </SharedContext.Consumer>
     );
 };
-  

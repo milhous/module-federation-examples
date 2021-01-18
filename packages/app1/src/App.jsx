@@ -1,6 +1,6 @@
 import React from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
-import { SharedContextProvider } from "../../shared-library/src";
+import { SharedContextProvider } from "@packages/shared-library";
 import Navigation from "./Navigation";
 
 const remoteApps = {
@@ -113,8 +113,8 @@ function System(props) {
 
   return (
     <React.Suspense fallback="Loading System">
-        <Component sys='app1' name={props.name} />
-      </React.Suspense>
+      <Component sys='app1' name={props.name} />
+    </React.Suspense>
   );
 }
 
@@ -176,7 +176,7 @@ function App() {
         <div style={{ marginTop: "2em" }}>
           <SharedContextProvider value="Milhous">
             <System system={system} name={name} />
-            </SharedContextProvider>
+          </SharedContextProvider>
         </div>
         <Navigation />
         <React.Suspense fallback={<div>Loading...</div>}>

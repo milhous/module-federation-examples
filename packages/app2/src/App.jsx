@@ -1,6 +1,6 @@
 import LocalButton from "./Widget";
 import React from "react";
-import { SharedContextProvider } from "../../shared-library/src";
+import { SharedContextProvider } from "@packages/shared-library";
 
 const App = () => (
   <div>

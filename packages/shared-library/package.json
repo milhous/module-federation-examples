@@ -2,8 +2,8 @@
     "name": "@packages/shared-library",
     "version": "0.0.1",
     "private": true,
-    "main": "./src/index.js",
+    "main": "./src/index.jsx",
     "peerDependencies": {
-        "react": "^16.13.0"
+        "react": "17.0.1"
     }
 }
