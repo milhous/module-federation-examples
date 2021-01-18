@@ -43,10 +43,14 @@ module.exports = {
         new HotModuleReplacementPlugin(),
         new ModuleFederationPlugin({
             name: "app1",
+            remotes: {
+                app2: "app2",
+                app3: "app3"
+            },
             shared: {
                 "react": { singleton: true, eager: true },
                 "react-dom": { singleton: true, eager: true },
-                "@packages/shared-library": {}
+                "@packages/shared-library": { singleton: true, eager: true }
             }
         }),
         new HtmlWebpackPlugin({

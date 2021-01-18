@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment";
-import { SharedContextConsumer } from "../../shared-library/src";
+import { NameContextProvider } from "../../shared-library/src";
 
 export default function Widget(props) {
   React.useEffect(() => {
@@ -8,7 +8,7 @@ export default function Widget(props) {
   }, []);
 
   return (
-    <SharedContextConsumer>
+    <NameContextProvider.Consumer>
       {(context) => <div
         style={{
           borderRadius: "4px",
@@ -23,6 +23,6 @@ export default function Widget(props) {
         <p>Props: {JSON.stringify(props)}</p>
         <p>App2 Moment Dep: {moment().format("MMMM Do YYYY, h:mm:ss a")}</p>
       </div>}
-    </SharedContextConsumer>
+    </NameContextProvider.Consumer>
   );
 }

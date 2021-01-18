@@ -1,6 +1,6 @@
 import React from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
-import { SharedContextProvider } from "@packages/shared-library";
+import { NameContextProvider } from "@packages/shared-library";
 import Navigation from "./Navigation";
 
 const remoteApps = {
@@ -174,9 +174,9 @@ function App() {
         <button onClick={setApp2}>Load App 2 Widget</button>
         <button onClick={() => { setName('' + Math.random()) }}>setName: {name}</button>
         <div style={{ marginTop: "2em" }}>
-          <SharedContextProvider value="Milhous">
+          <NameContextProvider.Provider value="Milhous">
             <System system={system} name={name} />
-          </SharedContextProvider>
+          </NameContextProvider.Provider>
         </div>
         <Navigation />
         <React.Suspense fallback={<div>Loading...</div>}>
